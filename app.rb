@@ -191,7 +191,7 @@ get '/humanwins' do
         end
     haml :final, :locals => { :b => board, :m => m }
   rescue
-    return '/'
+    redirect '/'
   end
 end
 
