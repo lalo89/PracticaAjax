@@ -149,6 +149,7 @@ helpers TicTacToe
 get "/" do
   session["bs"] = inicializa()
   haml :game, :locals => { :b => board, :m => ''}
+end
 
 get %r{^/([abc][123])?$} do |human|
   if human then
@@ -159,12 +160,13 @@ get %r{^/([abc][123])?$} do |human|
       board[human] = TicTacToe::CIRCLE
       # computer = board.legal_moves.sample
       computer = smart_move
-      return to ('/humanwins') if human_wins?
-      return to('/') unless computer
+      return '/humanwins' if human_wins?
+      return '/' unless computer
       board[computer] = TicTacToe::CROSS
       puts "I played: #{computer}!"
       puts "Tablero:  #{board.inspect}"
-      return to ('/computerwins') if computer_wins?
+      return '/computerwins' if computer_wins?
+      result = computer
     end
   else
     session["bs"] = inicializa()
@@ -172,7 +174,7 @@ get %r{^/([abc][123])?$} do |human|
     p session
     result = "illegal"
   end
-  haml :game, :locals => { :b => board, :m => '' }
+  result
 end
 
 get '/humanwins' do
