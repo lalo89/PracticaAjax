@@ -146,6 +146,10 @@ end
 
 helpers TicTacToe
 
+get "/" do
+  session["bs"] = inicializa()
+  haml :game, :locals => { :b => board, :m => ''}
+
 get %r{^/([abc][123])?$} do |human|
   if human then
     puts "You played: #{human}!"
