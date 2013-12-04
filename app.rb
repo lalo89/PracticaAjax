@@ -155,19 +155,20 @@ get %r{^/([abc][123])?$} do |human|
       board[human] = TicTacToe::CIRCLE
       # computer = board.legal_moves.sample
       computer = smart_move
-      redirect to ('/humanwins') if human_wins?
-      redirect to('/') unless computer
+      return to ('/humanwins') if human_wins?
+      return to('/') unless computer
       board[computer] = TicTacToe::CROSS
       puts "I played: #{computer}!"
       puts "Tablero:  #{board.inspect}"
-      redirect to ('/computerwins') if computer_wins?
+      return to ('/computerwins') if computer_wins?
     end
   else
     session["bs"] = inicializa()
     puts "session = "
     p session
+    result = "illegal"
   end
-  haml :game, :locals => { :b => board, :m => ''  }
+  haml :game, :locals => { :b => board, :m => '' }
 end
 
 get '/humanwins' do
@@ -190,7 +191,7 @@ get '/humanwins' do
         end
     haml :final, :locals => { :b => board, :m => m }
   rescue
-    redirect '/'
+    return '/'
   end
 end
 
@@ -226,7 +227,7 @@ post '/' do
     session.clear
   else
     nick = params[:usuario]
-    #nick = nick["username"]
+    nick = nick["username"]
     u = Usuario.first(:username => "#{nick}" )
     if u == nil
       usuario = Usuario.create(params[:usuario])
