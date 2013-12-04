@@ -1,20 +1,46 @@
 .message
         .tabla
-                %table
-                        %tr
-                                %th RANKING TICTACTOE
-                        %tr
-                                %th Nick
-                                %th Ganadas
-                                %th Perdidas
-                        - @usuarios.sort_by {|k, v| v}.reverse.each do |usuario| 
+                %br
+                %br
+                %br
+                %br
+                %br
+                %center
+                        %h3 Ranking de usuarios Tic Tac Toe
+                        %br
+                        %table
                                 %tr
-                                        %td
-                                                #{usuario.username}
-                                        %td
-                                                #{usuario.partidas_ganadas}
-                                        %td        
-                                                #{usuario.partidas_perdidas}
+                                        %th Nick
+                                        %th
+                                        %th
+                                        %th Ganadas
+                                        %th
+                                        %th
+                                        %th Perdidas
+                                        %th
+                                        %th
+                                        %th Empatadas
+                                - @usuarios.sort_by {|k, v| v}.reverse.each do |usuario| 
+                                        %tr
+                                                %td
+                                                        #{usuario.username}
+                                                %td
+                                                %td
+                                                %td
+                                                        #{usuario.partidas_ganadas}
+                                                %td
+                                                %td
+                                                %td        
+                                                        #{usuario.partidas_perdidas}
+                                                %td
+                                                %td
+                                                %td
+                                                        #{usuario.partidas_empatadas}
+                                        %tr
+                                        %tr
+                                        %tr
+                        %br
+                        %br
         .volver
                 %a{:href=>"/"}
                         Click aqui para volver al juego
